@@ -1,14 +1,13 @@
 import { FooterBackground, FooterList, DetailMemberName } from "style/Styles";
 import ListItem from "./ListItem";
-import { useContext } from "react";
-import { LatterContextProvider } from "context/LatterContext";
-import { HomeContextProvider } from "context/HomeContext";
+import { useSelector } from "react-redux";
 
 function List() {
-  const { data } = useContext(LatterContextProvider);
-  const { selectedMember } = useContext(HomeContextProvider);
+  const lists = useSelector((state) => state.lists);
+  const selectedMember = useSelector((state) => state.members);
+
   //멤버 UI에서 클릭한 해당 멤버의 정보
-  const filterData = data.filter((data) =>
+  const filterData = lists.filter((data) =>
     data.writedTo === selectedMember ? true : false
   );
 

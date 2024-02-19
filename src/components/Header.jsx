@@ -1,22 +1,24 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   HeaderBackground,
   HeaderList,
   HeaderItem,
   HeaderNav,
 } from "../style/Styles.jsx";
-import { HomeContextProvider } from "context/HomeContext.jsx";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectMember } from "../redux/modules/member.js";
 
 function Header() {
-  const { selectedMember, setSelectedMember } = useContext(HomeContextProvider);
   //멤버 UI 형성
-  const aespa = ["카리나스", "지젤", "윈터", "닝닝"];
+  const aespa = ["카리나", "지젤", "윈터", "닝닝"];
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const selectedMember = useSelector((state) => state.members);
 
   const memberClickEvent = (name) => {
-    setSelectedMember(name);
+    dispatch(selectMember(name));
   };
 
   //로그인 버튼
