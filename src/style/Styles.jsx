@@ -28,25 +28,38 @@ export const HeaderBackground = styled.header`
   width: 100%;
   height: 300px;
   margin-bottom: 20px;
-  position: relative;
+
+  div {
+    display: flex;
+    justify-content: right;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  button {
+    width: 100px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+  }
+
+  h1 {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 50px;
+    font-weight: 700;
+    color: white;
+    min-width: 475px;
+  }
 `;
 
-export const HeaderTitle = styled.h1`
-  position: absolute;
-  top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 50px;
-  font-weight: 700;
-  color: white;
-  min-width: 475px;
+export const HeaderNav = styled.nav`
+  margin-bottom: 16px;
 `;
 
 export const HeaderList = styled.ul`
-  position: absolute;
-  bottom: 16px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   justify-content: space-between;
   border: 1px solid white;
