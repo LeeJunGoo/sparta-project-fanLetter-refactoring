@@ -129,7 +129,7 @@ table {
 @font-face {
   font-family: "GowunDodum-Regular";
   font-weight: normal;
-  src: url("fonts/Renaissance.ttf") format("truetype");
+  src: url("assets/fonts/Renaissance.ttf") format("truetype");
 }
 
 body {

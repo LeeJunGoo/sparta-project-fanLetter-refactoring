@@ -7,7 +7,7 @@ import {
   BodyRegisterButton,
   BodyTextArea,
 } from "style/Styles";
-import profile from "assets/profile.png";
+import profile from "assets/images/profile.png";
 import { useContext, useState } from "react";
 import { LatterContextProvider } from "context/LatterContext";
 import { HomeContextProvider } from "context/HomeContext";
