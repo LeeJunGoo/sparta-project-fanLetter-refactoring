@@ -13,19 +13,21 @@ import {
   DetailHeader,
   DetailTextArea,
 } from "style/Styles";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { LatterContextProvider } from "context/LatterContext";
+import { useDispatch, useSelector } from "react-redux";
+import { modifyList, deleteList } from "../redux/modules/lists";
 
 function DetailList() {
-  const { data, setData } = useContext(LatterContextProvider);
+  const lists = useSelector((state) => state.lists);
+  const dispatch = useDispatch();
 
   //useParams()에서 받아온 데이터는 객체 형태이다.
   const { id } = useParams(); //Router에서 ":id" useParams를 통해 동적 매개변수 할당
   const navigate = useNavigate();
 
   //해당 id와 일치한 데이터 정보
-  const detailData = data.find((item) => item.id === id);
+  const detailData = lists.find((item) => item.id === id);
 
   const [isUpdateMode, setIsUpdateMode] = useState(false); //수정 및 취소 버튼
   const [inputValue, setInputValue] = useState(detailData.content); //글 입력
@@ -49,18 +51,11 @@ function DetailList() {
     }
 
     // 데이터 수정
-    setData((prev) => {
-      // 해당 id를 제외한 나머지 배열들
-      const filterPrev = prev.filter((item) => (item.id !== id ? true : false));
-      // 해당 id 데이터의 내용을 수정
-      detailData.content = inputValue;
-
-      // 수정된 내용을 맨 앞으로 이동
-      return [detailData, ...filterPrev];
-    });
+    dispatch(modifyList({ id, inputValue }));
 
     // 수정 버튼 초기화
     setIsUpdateMode(!isUpdateMode);
+
     alert("수정되었습니다.");
     navigate("/");
   };
@@ -71,7 +66,7 @@ function DetailList() {
   //삭제 버튼 이벤트 핸들러
   const deleteOnClickEventHandler = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      setData((prev) => prev.filter((item) => item.id !== id));
+      dispatch(deleteList(id));
       alert("정상적으로 삭제되었습니다.");
       navigate("/");
     } else {

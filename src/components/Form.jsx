@@ -7,16 +7,17 @@ import {
   BodyRegisterButton,
   BodyTextArea,
 } from "style/Styles";
-import profile from "assets/images/profile.png";
-import { useContext, useState } from "react";
-import { LatterContextProvider } from "context/LatterContext";
-import { HomeContextProvider } from "context/HomeContext";
+import profile from "../assets/images/profile.png";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addList } from "../redux/modules/lists";
+import { selectMember } from "../redux/modules/member";
 function Form() {
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [writedTo, setWritedTo] = useState("");
-  const { setSelectedMember } = useContext(HomeContextProvider);
-  const { setData } = useContext(LatterContextProvider);
+
+  const dispatch = useDispatch();
 
   const date = new Date().toLocaleDateString("ko-KR", {
     year: "numeric",
@@ -59,24 +60,22 @@ function Form() {
       setWritedTo(""); // //비동기 처리로 인해 변경된 내용이 바로 적용되지 않아 아래의 코드가 정상 작동된다.
 
       //해당 멤버 리스트로 이동
-      setSelectedMember(writedTo);
+      dispatch(selectMember(writedTo));
+      // setSelectedMember(writedTo);
     }
   };
 
   const dataAdd = () => {
-    setData((prev) => {
-      return [
-        {
-          createdAt: date,
-          nickname,
-          avatar: profile,
-          content,
-          writedTo,
-          id: prev.length + "1",
-        }, //문자로 형변환 시킨 이유) 더미 데이터의 id값이 문자로 저장되어있기 때문이다.
-        ...prev,
-      ];
-    });
+    const newData = {
+      createdAt: date,
+      nickname,
+      avatar: profile,
+      content,
+      writedTo,
+      id: crypto.randomUUID(),
+    }; //문자로 형변환 시킨 이유) 더미 데이터의 id값이 문자로 저장되어있기 때문이다.
+
+    dispatch(addList(newData));
   };
 
   return (
