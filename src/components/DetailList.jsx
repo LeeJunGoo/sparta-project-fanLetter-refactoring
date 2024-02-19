@@ -1,0 +1,128 @@
+import {
+  DetailBackground,
+  DetailButton,
+  DetailButtonDiv,
+  DetailButtonSection,
+  DetailContent,
+  DetailHomeButton,
+  DetailItemBox,
+  DetailMemberName,
+  ListDate,
+  FooterItemFigure,
+  FooterItemImage,
+  DetailHeader,
+  DetailTextArea,
+} from "style/Styles";
+import React, { useContext, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { LatterContextProvider } from "context/LatterContext";
+
+function DetailList() {
+  const { data, setData } = useContext(LatterContextProvider);
+
+  //useParams()에서 받아온 데이터는 객체 형태이다.
+  const { id } = useParams(); //Router에서 ":id" useParams를 통해 동적 매개변수 할당
+  const navigate = useNavigate();
+
+  //해당 id와 일치한 데이터 정보
+  const detailData = data.find((item) => item.id === id);
+
+  const [isUpdateMode, setIsUpdateMode] = useState(false); //수정 및 취소 버튼
+  const [inputValue, setInputValue] = useState(detailData.content); //글 입력
+
+  //글 수정
+  const handleTextAreaChange = (e) => setInputValue(e.target.value);
+
+  //1) 수정 버튼 클릭 시 <textarea> 창으로 변경
+  const updateOnClickEventHandler = () =>
+    isUpdateMode ? textAreaButtonHandler() : setIsUpdateMode(!isUpdateMode);
+
+  //2) <textarea>에서 수정 버튼 이벤트 핸들러
+  const textAreaButtonHandler = () => {
+    if (!window.confirm("이대로 수정하시겠습니까?")) {
+      return;
+    }
+
+    // 유효성 검사
+    if (detailData.content === inputValue) {
+      return alert("변경된 내용이 없습니다.");
+    }
+
+    // 데이터 수정
+    setData((prev) => {
+      // 해당 id를 제외한 나머지 배열들
+      const filterPrev = prev.filter((item) => (item.id !== id ? true : false));
+      // 해당 id 데이터의 내용을 수정
+      detailData.content = inputValue;
+
+      // 수정된 내용을 맨 앞으로 이동
+      return [detailData, ...filterPrev];
+    });
+
+    // 수정 버튼 초기화
+    setIsUpdateMode(!isUpdateMode);
+    alert("수정되었습니다.");
+    navigate("/");
+  };
+
+  //취소 버튼 이벤트 핸들러
+  const cancelOnClickEventHandler = () => setIsUpdateMode(!isUpdateMode);
+
+  //삭제 버튼 이벤트 핸들러
+  const deleteOnClickEventHandler = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      setData((prev) => prev.filter((item) => item.id !== id));
+      alert("정상적으로 삭제되었습니다.");
+      navigate("/");
+    } else {
+      alert("취소되었습니다.");
+    }
+  };
+
+  return (
+    <DetailBackground>
+      <DetailHomeButton onClick={() => navigate("/")}>Home</DetailHomeButton>
+
+      <DetailItemBox>
+        <DetailHeader>
+          <FooterItemFigure>
+            <FooterItemImage src={detailData.avatar}></FooterItemImage>
+          </FooterItemFigure>
+          <DetailMemberName>{detailData.nickname}</DetailMemberName>
+        </DetailHeader>
+        <ListDate>{detailData.createdAt}</ListDate>
+        <DetailMemberName>To: {detailData.writedTo}</DetailMemberName>
+        {isUpdateMode ? (
+          <DetailTextArea
+            maxLength={200}
+            value={inputValue}
+            onChange={handleTextAreaChange}
+          ></DetailTextArea>
+        ) : (
+          <DetailContent>{detailData.content}</DetailContent>
+        )}
+
+        <DetailButtonSection>
+          <DetailButtonDiv>
+            <DetailButton onClick={updateOnClickEventHandler}>
+              수정
+            </DetailButton>
+          </DetailButtonDiv>
+          <DetailButtonDiv>
+            {isUpdateMode ? (
+              <DetailButton onClick={cancelOnClickEventHandler}>
+                취소
+              </DetailButton>
+            ) : (
+              <DetailButton onClick={deleteOnClickEventHandler}>
+                삭제
+              </DetailButton>
+            )}
+          </DetailButtonDiv>
+        </DetailButtonSection>
+      </DetailItemBox>
+    </DetailBackground>
+  );
+}
+
+export default DetailList;
