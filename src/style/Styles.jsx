@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import aespa from "assets/aespa1.jpg";
+import aespa from "assets/images/aespa1.jpg";
 
 // styled - components 요소를 컴포넌트 아래 쪽에 배치하지 않은 이유
 // - 추후 기능 코드 및 스타일 코드의 양이 방대해져 컴포넌트의 해석이 어려울 것 같아서 별도로 파일 생성
