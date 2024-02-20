@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   BodyBox,
   BodyForm,
@@ -8,10 +10,10 @@ import {
   BodyTextArea,
 } from "style/Styles";
 import profile from "../assets/images/profile.png";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { addList } from "../redux/modules/lists";
 import { selectMember } from "../redux/modules/member";
+import api from "../api/api";
+
 function Form() {
   const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
@@ -65,7 +67,7 @@ function Form() {
     }
   };
 
-  const dataAdd = () => {
+  const dataAdd = async () => {
     const newData = {
       createdAt: date,
       nickname,
@@ -75,6 +77,10 @@ function Form() {
       id: crypto.randomUUID(),
     }; //문자로 형변환 시킨 이유) 더미 데이터의 id값이 문자로 저장되어있기 때문이다.
 
+    //서버 측 상태 변경
+    api.post("/letters", newData);
+
+    //클라이언트 측 상태 변경
     dispatch(addList(newData));
   };
 

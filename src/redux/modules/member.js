@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 //초기값
-const initialState = ["에스파"];
+const initialState = "카리나";
 
 const memberSlice = createSlice({
   name: "members",
