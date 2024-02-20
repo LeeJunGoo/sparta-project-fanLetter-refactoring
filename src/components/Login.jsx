@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginDiv, LoginForm } from "style/Styles";
+import { userInstance } from "../api/api";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../redux/modules/authSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [id, setId] = useState("");
@@ -8,22 +12,31 @@ function Login() {
   const [nickName, setNickName] = useState("");
   const [isState, setIsState] = useState(false);
 
+  const dispatch = useDispatch();
+  // const selectUser = useSelector((state) => state.authSlice);
+  const navigator = useNavigate();
+
   const submitClickEventHandler = async (e) => {
     e.preventDefault();
 
-    const response = await axios.post(
-      " https://moneyfulpublicpolicy.co.kr/login",
-      {
-        id: "123456",
-        password: "123123",
-      }
-    );
-    console.log(response);
-    //유효성 검사
-    // if (validation()) {
-    // }
+    try {
+      const { data } = await userInstance.post("/login", {
+        id,
+        password,
+      });
+
+      dispatch(setUser(data));
+      navigator("/home");
+      window.alert("로그인 성공");
+
+      // console.log(data);
+      // console.log(selectUser);
+    } catch (error) {
+      window.alert("일치한 회원정보가 없습니다.");
+    }
   };
 
+  //유효성 검사
   const validation = () => {
     const regex = /[^\w\s]/gi;
     const StringId = id.toString().trim();

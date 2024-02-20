@@ -1,22 +1,21 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   DetailBackground,
   DetailButton,
   DetailButtonDiv,
   DetailButtonSection,
   DetailContent,
-  DetailHomeButton,
+  DetailHeader,
   DetailItemBox,
   DetailMemberName,
-  ListDate,
+  DetailTextArea,
   FooterItemFigure,
   FooterItemImage,
-  DetailHeader,
-  DetailTextArea,
+  ListDate,
 } from "style/Styles";
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { modifyList, deleteList } from "../redux/modules/lists";
+import { deleteList, modifyList } from "../redux/modules/lists";
 
 function DetailList() {
   const lists = useSelector((state) => state.lists);
