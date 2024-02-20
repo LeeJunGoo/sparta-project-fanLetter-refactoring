@@ -76,8 +76,6 @@ function DetailList() {
 
   return (
     <DetailBackground>
-      <DetailHomeButton onClick={() => navigate("/")}>Home</DetailHomeButton>
-
       <DetailItemBox>
         <DetailHeader>
           <FooterItemFigure>
