@@ -4,10 +4,6 @@ import aespa from "assets/images/aespa1.jpg";
 // styled - components 요소를 컴포넌트 아래 쪽에 배치하지 않은 이유
 // - 추후 기능 코드 및 스타일 코드의 양이 방대해져 컴포넌트의 해석이 어려울 것 같아서 별도로 파일 생성
 
-//styled - components
-// 장점: 공통요소의 스타일을 적용할 때 재사용을 할 수 있는 부분과 특정 조건에 따른 조건부 스타일링 되는 점이 장점이라고 생각합니다.
-// 단점: 무분별하게 많이 사용하면
-
 export const HomeBackground = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,24 +20,10 @@ export const DetailBackground = styled.div`
   background-image: url(${aespa});
 `;
 
-export const HeaderBackground = styled.header`
+export const HeaderBackground = styled.div`
   width: 100%;
   height: 300px;
   margin-bottom: 20px;
-
-  div {
-    display: flex;
-    justify-content: right;
-    padding: 20px;
-    gap: 20px;
-  }
-
-  button {
-    width: 100px;
-    height: 30px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
-  }
 
   h1 {
     position: absolute;
@@ -56,7 +38,40 @@ export const HeaderBackground = styled.header`
 `;
 
 export const HeaderNav = styled.nav`
-  margin-bottom: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 10px;
+  background-color: inherit;
+
+  section {
+    display: flex;
+    gap: 10px;
+  }
+
+  button {
+    background-color: inherit;
+    width: 100px;
+    height: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #6ea477;
+    }
+  }
+`;
+
+export const HeaderDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 150px;
+  font-size: 20px;
+  color: white;
+  min-width: 475px;
 `;
 
 export const HeaderList = styled.ul`
@@ -187,16 +202,16 @@ export const FooterItemContent = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const DetailHomeButton = styled.button`
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  background-color: black;
-  box-shadow: black 10px 5px 5px;
-  color: white;
-  width: 100px;
-  height: 50px;
-`;
+// export const DetailHomeButton = styled.button`
+//   position: absolute;
+//   top: 30px;
+//   left: 30px;
+//   background-color: black;
+//   box-shadow: black 10px 5px 5px;
+//   color: white;
+//   width: 100px;
+//   height: 50px;
+// `;
 
 export const DetailItemBox = styled.div`
   display: flex;
@@ -269,4 +284,44 @@ export const ListTitle = styled.span`
 
 export const ListDate = styled.time`
   text-align: right;
+`;
+
+export const LoginDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: lightgray;
+`;
+
+export const LoginForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 10px;
+  gap: 5px;
+  border: 1px solid white;
+  background-color: white;
+  border-radius: 15px;
+
+  p {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  input {
+    margin-bottom: 24px;
+    padding: 12px 0px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-image: initial;
+    border-bottom: 1px solid gray;
+    outline: none;
+  }
+
+  button {
+    width: 100%;
+    height: 8vh;
+  }
 `;
