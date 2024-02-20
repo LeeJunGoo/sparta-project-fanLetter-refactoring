@@ -8,4 +8,8 @@ const instance = axios.create({
   },
 });
 
+export const userInstance = axios.create({
+  baseURL: "https://moneyfulpublicpolicy.co.kr",
+});
+
 export default instance;

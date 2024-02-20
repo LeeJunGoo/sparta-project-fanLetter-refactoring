@@ -8,11 +8,15 @@ const initialState = [];
 const authSlice = createSlice({
   name: "authSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    setUser: (state, action) => {
+      return (state = action.payload);
+    },
+  },
 });
 
 //actions
-export const {} = authSlice.actions;
+export const { setUser } = authSlice.actions;
 
 //slice ==> configureStore에 전달
 export default authSlice.reducer;
