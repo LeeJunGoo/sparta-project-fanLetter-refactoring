@@ -202,17 +202,6 @@ export const FooterItemContent = styled.p`
   text-overflow: ellipsis;
 `;
 
-// export const DetailHomeButton = styled.button`
-//   position: absolute;
-//   top: 30px;
-//   left: 30px;
-//   background-color: black;
-//   box-shadow: black 10px 5px 5px;
-//   color: white;
-//   width: 100px;
-//   height: 50px;
-// `;
-
 export const DetailItemBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -299,15 +288,12 @@ export const LoginForm = styled.form`
   flex-direction: column;
   width: 500px;
   padding: 10px;
-  gap: 5px;
+  gap: 15px;
   border: 1px solid white;
   background-color: white;
   border-radius: 15px;
-
-  p {
-    font-size: 30px;
-    text-align: center;
-  }
+  text-align: center;
+  font-size: 20px;
 
   input {
     margin-bottom: 24px;

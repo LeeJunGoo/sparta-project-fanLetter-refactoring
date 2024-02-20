@@ -1,10 +1,25 @@
 import { FooterBackground, FooterList, DetailMemberName } from "style/Styles";
 import ListItem from "./ListItem";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { setList } from "../redux/modules/lists";
+import api from "api/api";
 
 function List() {
+  const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists);
   const selectedMember = useSelector((state) => state.members);
+
+  //axios를 사용하여 db에 있는 값 불러오기
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    const { data } = await api.get("/letters?_sort=-createdAt");
+    console.log(data);
+    dispatch(setList(data));
+  };
 
   //멤버 UI에서 클릭한 해당 멤버의 정보
   const filterData = lists.filter((data) =>

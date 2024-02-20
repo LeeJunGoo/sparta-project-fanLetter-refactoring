@@ -7,8 +7,8 @@ import members from "../modules/member";
 //redux toolkit 설치
 const store = configureStore({
   reducer: {
-    lists: lists,
-    members: members,
+    lists,
+    members,
   },
 });
 
