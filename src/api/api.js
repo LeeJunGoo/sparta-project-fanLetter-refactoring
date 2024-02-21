@@ -10,6 +10,9 @@ const instance = axios.create({
 
 export const userInstance = axios.create({
   baseURL: "https://moneyfulpublicpolicy.co.kr",
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 export default instance;
