@@ -11,7 +11,6 @@ import { useSelector } from "react-redux";
 const Router = () => {
   const { isLogin } = useSelector((state) => state.authSlice);
 
-  console.log(isLogin);
   return (
     <BrowserRouter>
       <Routes>

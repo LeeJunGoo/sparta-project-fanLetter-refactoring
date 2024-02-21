@@ -9,19 +9,18 @@ import {
   BodyRegisterButton,
   BodyTextArea,
 } from "style/Styles";
-import profile from "../assets/images/profile.png";
-import { addList } from "../redux/modules/lists";
+
+import { __addLetter } from "../redux/modules/lists";
 import { selectMember } from "../redux/modules/member";
-import api from "../api/api";
 
 function Form() {
   const [content, setContent] = useState("");
   const [writedTo, setWritedTo] = useState("");
 
   const dispatch = useDispatch();
-  const { avatar, nickname } = useSelector((state) => state.authSlice);
+  const { avatar, nickname, userId } = useSelector((state) => state.authSlice);
 
-  console.log(avatar, nickname);
+  // console.log(avatar, nickname);
   const date = new Date().toLocaleDateString("ko-KR", {
     year: "numeric",
     month: "long",
@@ -53,11 +52,10 @@ function Form() {
 
       //입력창 초기화
       setContent("");
-      setWritedTo(""); // //비동기 처리로 인해 변경된 내용이 바로 적용되지 않아 아래의 코드가 정상 작동된다.
+      setWritedTo("");
 
       //해당 멤버 리스트로 이동
       dispatch(selectMember(writedTo));
-      // setSelectedMember(writedTo);
     }
   };
 
@@ -69,13 +67,11 @@ function Form() {
       avatar,
       createdAt: date,
       writedTo,
+      userId,
     };
 
-    //서버 측 상태 변경
-    api.post("/letters", newData);
-
     //클라이언트 측 상태 변경
-    dispatch(addList(newData));
+    dispatch(__addLetter(newData));
   };
 
   return (
