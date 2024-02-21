@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BodyBox,
   BodyForm,
-  BodyInputName,
   BodyLabel,
+  BodyP,
   BodyRegister,
   BodyRegisterButton,
   BodyTextArea,
@@ -15,12 +15,13 @@ import { selectMember } from "../redux/modules/member";
 import api from "../api/api";
 
 function Form() {
-  const [nickname, setNickname] = useState("");
   const [content, setContent] = useState("");
   const [writedTo, setWritedTo] = useState("");
 
   const dispatch = useDispatch();
+  const { avatar, nickname } = useSelector((state) => state.authSlice);
 
+  console.log(avatar, nickname);
   const date = new Date().toLocaleDateString("ko-KR", {
     year: "numeric",
     month: "long",
@@ -28,9 +29,6 @@ function Form() {
     hour: "numeric",
     minute: "numeric",
   });
-
-  //닉네임 입력
-  const nicknameOnChangeHandler = (e) => setNickname(e.target.value);
 
   //내용 입력
   const contentOnChangeHandler = (e) => setContent(e.target.value);
@@ -43,10 +41,7 @@ function Form() {
     e.preventDefault();
 
     //유효성 검사
-    if (nickname.trim() === "") {
-      alert("닉네임을 입력해주세요");
-      setNickname("");
-    } else if (content.trim() === "") {
+    if (content.trim() === "") {
       alert("내용을 입력해주세요");
       setContent("");
     } else if (writedTo === "") {
@@ -57,24 +52,24 @@ function Form() {
       dataAdd();
 
       //입력창 초기화
-      setNickname("");
       setContent("");
       setWritedTo(""); // //비동기 처리로 인해 변경된 내용이 바로 적용되지 않아 아래의 코드가 정상 작동된다.
 
       //해당 멤버 리스트로 이동
       dispatch(selectMember(writedTo));
+      // setSelectedMember(writedTo);
     }
   };
 
   const dataAdd = async () => {
     const newData = {
-      createdAt: date,
-      nickname,
-      avatar: profile,
-      content,
-      writedTo,
       id: crypto.randomUUID(),
-    }; //문자로 형변환 시킨 이유) 더미 데이터의 id값이 문자로 저장되어있기 때문이다.
+      nickname,
+      content,
+      avatar,
+      createdAt: date,
+      writedTo,
+    };
 
     //서버 측 상태 변경
     api.post("/letters", newData);
@@ -87,12 +82,7 @@ function Form() {
     <BodyForm onSubmit={submitEventHandler}>
       <BodyBox>
         <BodyLabel>닉네임:</BodyLabel>
-        <BodyInputName
-          value={nickname}
-          onChange={nicknameOnChangeHandler}
-          placeholder="최대 10글자까지 작성할 수 있습니다."
-          maxLength={10}
-        ></BodyInputName>
+        <BodyP>{nickname}</BodyP>
       </BodyBox>
       <BodyBox>
         <BodyLabel>내용:</BodyLabel>

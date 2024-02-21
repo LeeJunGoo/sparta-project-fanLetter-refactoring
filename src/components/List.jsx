@@ -1,15 +1,14 @@
-import { FooterBackground, FooterList, DetailMemberName } from "style/Styles";
-import ListItem from "./ListItem";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { setList } from "../redux/modules/lists";
 import api from "api/api";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DetailMemberName, FooterBackground, FooterList } from "style/Styles";
+import { setList } from "../redux/modules/lists";
+import ListItem from "./ListItem";
 
 function List() {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists);
   const selectedMember = useSelector((state) => state.members);
-  const selectedUser = useSelector((state) => state.authSlice);
 
   //axios를 사용하여 db에 있는 값 불러오기
   useEffect(() => {

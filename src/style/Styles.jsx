@@ -129,7 +129,7 @@ export const BodyLabel = styled.label`
   align-items: center;
 `;
 
-export const BodyInputName = styled.input`
+export const BodyP = styled.p`
   width: 100%;
   padding: 5px 10px;
 `;
