@@ -9,6 +9,9 @@ function List() {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists);
   const selectedMember = useSelector((state) => state.members);
+  const selectedUser = useSelector((state) => state.authSlice);
+
+  console.log(selectedUser);
 
   //axios를 사용하여 db에 있는 값 불러오기
   useEffect(() => {
@@ -17,7 +20,6 @@ function List() {
 
   const fetchData = async () => {
     const { data } = await api.get("/letters?_sort=-createdAt");
-    console.log(data);
     dispatch(setList(data));
   };
 
