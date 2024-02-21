@@ -10,7 +10,8 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      return (state = action.payload);
+      //로그인된 정보
+      state.push(action.payload);
     },
   },
 });
