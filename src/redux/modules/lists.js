@@ -28,7 +28,6 @@ const listSlice = createSlice({
     //수정 기능
     modifyList: (state, action) => {
       const { id, inputValue } = action.payload;
-      console.log(action);
 
       return state.map((item) => {
         if (item.id === id) {

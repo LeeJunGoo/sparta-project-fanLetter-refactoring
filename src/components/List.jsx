@@ -11,12 +11,12 @@ function List() {
   const selectedMember = useSelector((state) => state.members);
   const selectedUser = useSelector((state) => state.authSlice);
 
-  console.log(selectedUser);
-
   //axios를 사용하여 db에 있는 값 불러오기
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log(lists);
 
   const fetchData = async () => {
     const { data } = await api.get("/letters?_sort=-createdAt");

@@ -6,7 +6,6 @@ function Layout() {
   const navigate = useNavigate();
   const selector = useSelector((state) => state.authSlice);
 
-  console.log(selector);
   //로그인 및 로그아웃 버튼
   const loginButtonClickHandler = () => {
     navigate(`/`);

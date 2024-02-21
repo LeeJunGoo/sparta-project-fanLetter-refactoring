@@ -15,7 +15,8 @@ import {
   FooterItemImage,
   ListDate,
 } from "style/Styles";
-import { deleteList, modifyList } from "../redux/modules/lists";
+import api from "../api/api";
+import { deleteList } from "../redux/modules/lists";
 
 function DetailList() {
   const lists = useSelector((state) => state.lists);
@@ -50,13 +51,15 @@ function DetailList() {
     }
 
     // 데이터 수정
-    dispatch(modifyList({ id, inputValue }));
+    api.patch(`/letters/${id}`, {
+      content: inputValue,
+    });
 
     // 수정 버튼 초기화
     setIsUpdateMode(!isUpdateMode);
 
     alert("수정되었습니다.");
-    navigate("/");
+    navigate("/home");
   };
 
   //취소 버튼 이벤트 핸들러
@@ -66,8 +69,10 @@ function DetailList() {
   const deleteOnClickEventHandler = () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       dispatch(deleteList(id));
+
+      api.delete(`/letters/${id}`);
       alert("정상적으로 삭제되었습니다.");
-      navigate("/");
+      navigate("/home");
     } else {
       alert("취소되었습니다.");
     }
