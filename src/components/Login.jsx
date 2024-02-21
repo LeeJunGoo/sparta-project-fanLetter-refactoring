@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { LoginDiv, LoginForm } from "style/Styles";
 import { userInstance } from "../api/api";
-import { setUser } from "../redux/modules/authSlice";
+import { login } from "../redux/modules/authSlice";
 import { toast } from "react-toastify";
 
 function Login() {
@@ -27,13 +27,11 @@ function Login() {
           password,
         });
 
-        //로컬스토리지 저장하기! (아직...)
-
-        //클라이언트 측
-        dispatch(setUser(data));
-
-        navigator("/home");
-        toast.success("로그인 성공");
+        if (data.success) {
+          dispatch(login(data.accessToken));
+          navigator("/home");
+          toast.success("로그인 성공");
+        }
       } catch (error) {
         toast.error(error.response.data.message);
       }

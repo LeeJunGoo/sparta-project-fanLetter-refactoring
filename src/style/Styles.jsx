@@ -37,13 +37,21 @@ export const HeaderBackground = styled.div`
   }
 `;
 
-export const HeaderNav = styled.nav`
+export const StHeader = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
   padding: 20px;
   gap: 10px;
   background-color: inherit;
+  user-select: none; //Link 태그의 드래그 방지
+  a {
+    text-decoration: none; //Link 태그의 밑줄 제거
+    color: inherit;
+    &:hover {
+      color: #6ea477;
+    }
+  }
 
   section {
     display: flex;

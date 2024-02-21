@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { HeaderNav } from "style/Styles";
+import { useDispatch } from "react-redux";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { StHeader } from "style/Styles";
+import { logout } from "../redux/modules/authSlice";
 
 function Layout() {
   const navigate = useNavigate();
-  const selector = useSelector((state) => state.authSlice);
+  const dispatch = useDispatch();
 
-  //로그인 및 로그아웃 버튼
   const loginButtonClickHandler = () => {
-    navigate(`/`);
+    dispatch(logout());
   };
 
   //마이페이지 버튼
@@ -18,17 +18,16 @@ function Layout() {
 
   return (
     <>
-      <HeaderNav>
-        <button onClick={() => navigate("/home")}>HOME</button>
+      <StHeader>
+        <Link to={"/home"}>HOME</Link>
         <section>
-          {selector !== "" ? (
-            <button onClick={loginButtonClickHandler}>로그아웃 구현 x</button>
-          ) : (
-            <button onClick={loginButtonClickHandler}>로그인</button>
-          )}
+          <button onClick={loginButtonClickHandler}>로그아웃 </button>
           <button onClick={profileButtonClickHandler}>마이페이지</button>
         </section>
-      </HeaderNav>
+      </StHeader>
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 }
