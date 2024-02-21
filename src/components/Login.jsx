@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginDiv, LoginForm } from "style/Styles";
 import { userInstance } from "../api/api";
 import { setUser } from "../redux/modules/authSlice";
+import { toast } from "react-toastify";
 
 function Login() {
   const [id, setId] = useState("");
@@ -12,7 +13,7 @@ function Login() {
   const [isState, setIsState] = useState(false);
 
   const dispatch = useDispatch();
-  const selectUser = useSelector((state) => state.authSlice);
+  // const selectUser = useSelector((state) => state.authSlice);
   const navigator = useNavigate();
 
   const submitClickEventHandler = async (e) => {
@@ -32,9 +33,9 @@ function Login() {
         dispatch(setUser(data));
 
         navigator("/home");
-        window.alert("로그인 성공");
+        toast.success("로그인 성공");
       } catch (error) {
-        window.alert("회원정보가 없습니다.");
+        toast.error(error.response.data.message);
       }
     }
 
@@ -51,9 +52,9 @@ function Login() {
         //로그인 및 회원가입 토글 변경
         StateChangeHandler();
 
-        window.alert("회원가입 성공");
+        toast.success("회원가입 성공");
       } catch (error) {
-        window.alert("이미 존재하는 아이디입니다.");
+        toast.error(error.response.data.message);
       }
     }
   };

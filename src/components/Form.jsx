@@ -63,7 +63,6 @@ function Form() {
 
       //해당 멤버 리스트로 이동
       dispatch(selectMember(writedTo));
-      // setSelectedMember(writedTo);
     }
   };
 
