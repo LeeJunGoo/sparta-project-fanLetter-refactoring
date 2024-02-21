@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import profile from "../../assets/images/profile.png";
+
 //초기값 설정
 const initialState = {
   //"!!" => boolean으로 형 변환
   isLogin: !!localStorage.getItem("accessToken"),
-  avatar: !!localStorage.getItem("avatar")
-    ? localStorage.getItem("avatar")
-    : profile,
+  avatar: localStorage.getItem("avatar"),
   nickname: localStorage.getItem("nickname"),
   userId: localStorage.getItem("userId"),
 };
