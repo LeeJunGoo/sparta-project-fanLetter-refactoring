@@ -35,6 +35,42 @@
       "createdAt": "2024년 2월 22일 오전 12:32",
       "writedTo": "카리나",
       "userId": "123456"
+    },
+    {
+      "id": "f55479a6-932d-481f-85bd-52d3d0f7f0d2",
+      "nickname": "zxc",
+      "content": "12345612312123123",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/2b18e92b-d057-419a-8f98-b107b8995147.jpg",
+      "createdAt": "2024년 2월 22일 오전 10:27",
+      "writedTo": "카리나",
+      "userId": "123456"
+    },
+    {
+      "id": "0bfc41a5-4fd1-4295-a89b-5cfa0a9cdfb8",
+      "nickname": "zxc",
+      "content": "2323232323232",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/2b18e92b-d057-419a-8f98-b107b8995147.jpg",
+      "createdAt": "2024년 2월 22일 오전 10:27",
+      "writedTo": "카리나",
+      "userId": "123456"
+    },
+    {
+      "id": "817a74ad-9325-4c1d-b806-afc5906f06ee",
+      "nickname": "zxc",
+      "content": "222222",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/2b18e92b-d057-419a-8f98-b107b8995147.jpg",
+      "createdAt": "2024년 2월 22일 오전 10:27",
+      "writedTo": "카리나",
+      "userId": "123456"
+    },
+    {
+      "id": "47939022-a757-4730-a75f-e41f957eea8b",
+      "nickname": "zxc",
+      "content": "23123",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/2b18e92b-d057-419a-8f98-b107b8995147.jpg",
+      "createdAt": "2024년 2월 22일 오전 10:28",
+      "writedTo": "카리나",
+      "userId": "123456"
     }
   ]
 }
