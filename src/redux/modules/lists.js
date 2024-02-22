@@ -4,68 +4,56 @@ import api from "../../api/api";
 //초기값 설정
 const initialState = {
   letters: [],
-  isLoading: false,
+  isLoading: true,
   isError: false,
   error: null,
 };
 
-export const __getLetter = createAsyncThunk(
-  "getLetters",
-  async (payload, thunkAPI) => {
-    try {
-      //서버 측
-      const { data } = await api.get("/letters?_sort=-createdAt");
+export const __getLetter = createAsyncThunk("getLetters", async (payload, thunkAPI) => {
+  try {
+    //서버 측
+    const { data } = await api.get("/letters?_sort=-createdAt");
 
-      //클라이언트 측
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+    //클라이언트 측
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
-export const __addLetter = createAsyncThunk(
-  "addLetter",
-  async (newLetter, thunkAPI) => {
-    try {
-      //서버 측 전달
-      await api.post("/letters", newLetter);
-      const { data } = await api.get("/letters");
-      console.log("data", data);
-      //reducer로 전달
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+export const __addLetter = createAsyncThunk("addLetter", async (newLetter, thunkAPI) => {
+  try {
+    //서버 측 전달
+    await api.post("/letters", newLetter);
+    const { data } = await api.get("/letters");
+    console.log("data", data);
+    //reducer로 전달
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
-export const __deleteLetter = createAsyncThunk(
-  "deleteLetter",
-  async (id, thunkAPI) => {
-    try {
-      await api.delete(`/letters/${id}`);
-      return id;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+export const __deleteLetter = createAsyncThunk("deleteLetter", async (id, thunkAPI) => {
+  try {
+    await api.delete(`/letters/${id}`);
+    return id;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
-export const __modifyLetter = createAsyncThunk(
-  "modifyLetter",
-  async (payload, thunkAPI) => {
-    try {
-      await api.patch(`/letters/${payload.id}`, {
-        content: payload.inputValue,
-      });
+export const __modifyLetter = createAsyncThunk("modifyLetter", async (payload, thunkAPI) => {
+  try {
+    await api.patch(`/letters/${payload.id}`, {
+      content: payload.inputValue,
+    });
 
-      return payload;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+    return payload;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
   }
-);
+});
 
 //redux slice 설정
 const listSlice = createSlice({
@@ -108,9 +96,7 @@ const listSlice = createSlice({
       })
       .addCase(__deleteLetter.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.letters = state.letters.filter(
-          (item) => item.id !== action.payload
-        );
+        state.letters = state.letters.filter((item) => item.id !== action.payload);
         state.isError = false;
         state.error = null;
       })
