@@ -30,7 +30,7 @@
     {
       "id": "c1ac9404-9c2f-4610-ba69-920d7bdb7bc7",
       "nickname": "zxc",
-      "content": "121212",
+      "content": "333333333",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/2b18e92b-d057-419a-8f98-b107b8995147.jpg",
       "createdAt": "2024년 2월 22일 오전 12:32",
       "writedTo": "카리나",
@@ -66,11 +66,20 @@
     {
       "id": "47939022-a757-4730-a75f-e41f957eea8b",
       "nickname": "zxc",
-      "content": "23123",
+      "content": "11111111sdfsdfs",
       "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-20/2b18e92b-d057-419a-8f98-b107b8995147.jpg",
       "createdAt": "2024년 2월 22일 오전 10:28",
       "writedTo": "카리나",
       "userId": "123456"
+    },
+    {
+      "id": "c7f2c9a6-2ddf-4faf-ad77-a404f5e1d061",
+      "nickname": "1111",
+      "content": "23232",
+      "avatar": null,
+      "createdAt": "2024년 2월 22일 오전 11:30",
+      "writedTo": "지젤",
+      "userId": "12345678"
     }
   ]
 }

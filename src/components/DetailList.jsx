@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -15,28 +15,25 @@ import {
   FooterItemImage,
   ListDate,
 } from "style/Styles";
-import { __deleteLetter, __modifyLetter } from "../redux/modules/lists";
+import { __deleteLetter, __getLetter, __modifyLetter } from "../redux/modules/lists";
 
 function DetailList() {
-  const lists = useSelector((state) => state.lists.letters);
+  const { letters, isLoading } = useSelector((state) => state.lists);
+  const myUserId = useSelector((state) => state.authSlice.userId);
   const dispatch = useDispatch();
 
   //useParams()에서 받아온 데이터는 객체 형태이다.
   const { id } = useParams(); //Router에서 ":id" useParams를 통해 동적 매개변수 할당
   const navigate = useNavigate();
 
-  //해당 id와 일치한 데이터 정보
-  const detailData = lists.find((item) => item.id === id);
-
   const [isUpdateMode, setIsUpdateMode] = useState(false); //수정 및 취소 버튼
-  const [inputValue, setInputValue] = useState(detailData.content); //글 입력
+  const [inputValue, setInputValue] = useState(""); //글 입력
 
   //글 수정
   const handleTextAreaChange = (e) => setInputValue(e.target.value);
 
   //1) 수정 버튼 클릭 시 <textarea> 창으로 변경
-  const updateOnClickEventHandler = () =>
-    isUpdateMode ? textAreaButtonHandler() : setIsUpdateMode(!isUpdateMode);
+  const updateOnClickEventHandler = () => (isUpdateMode ? textAreaButtonHandler() : setIsUpdateMode(!isUpdateMode));
 
   //2) <textarea>에서 수정 버튼 이벤트 핸들러
   const textAreaButtonHandler = () => {
@@ -72,6 +69,18 @@ function DetailList() {
     }
   };
 
+  useEffect(() => {
+    dispatch(__getLetter());
+  }, []);
+
+  if (isLoading) {
+    return <p>로딩 중...</p>;
+  }
+  //해당 id와 일치한 데이터 정보
+  const detailData = letters.find((item) => item.id === id);
+
+  const isMine = myUserId === detailData.userId;
+
   return (
     <DetailBackground>
       <DetailItemBox>
@@ -84,33 +93,25 @@ function DetailList() {
         <ListDate>{detailData.createdAt}</ListDate>
         <DetailMemberName>To: {detailData.writedTo}</DetailMemberName>
         {isUpdateMode ? (
-          <DetailTextArea
-            maxLength={200}
-            value={inputValue}
-            onChange={handleTextAreaChange}
-          ></DetailTextArea>
+          <DetailTextArea maxLength={200} value={inputValue} onChange={handleTextAreaChange}></DetailTextArea>
         ) : (
           <DetailContent>{detailData.content}</DetailContent>
         )}
 
-        <DetailButtonSection>
-          <DetailButtonDiv>
-            <DetailButton onClick={updateOnClickEventHandler}>
-              수정
-            </DetailButton>
-          </DetailButtonDiv>
-          <DetailButtonDiv>
-            {isUpdateMode ? (
-              <DetailButton onClick={cancelOnClickEventHandler}>
-                취소
-              </DetailButton>
-            ) : (
-              <DetailButton onClick={deleteOnClickEventHandler}>
-                삭제
-              </DetailButton>
-            )}
-          </DetailButtonDiv>
-        </DetailButtonSection>
+        {isMine ? (
+          <DetailButtonSection>
+            <DetailButtonDiv>
+              <DetailButton onClick={updateOnClickEventHandler}>수정</DetailButton>
+            </DetailButtonDiv>
+            <DetailButtonDiv>
+              {isUpdateMode ? (
+                <DetailButton onClick={cancelOnClickEventHandler}>취소</DetailButton>
+              ) : (
+                <DetailButton onClick={deleteOnClickEventHandler}>삭제</DetailButton>
+              )}
+            </DetailButtonDiv>
+          </DetailButtonSection>
+        ) : null}
       </DetailItemBox>
     </DetailBackground>
   );
