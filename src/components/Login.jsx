@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
 import { LoginDiv, LoginForm } from "style/Styles";
 import { userInstance } from "../api/api";
-import { login } from "../redux/modules/authSlice";
+import { __login } from "../redux/modules/authSlice";
 import { toast } from "react-toastify";
 
 function Login() {
@@ -13,30 +13,13 @@ function Login() {
   const [isState, setIsState] = useState(false);
 
   const dispatch = useDispatch();
-  // const selectUser = useSelector((state) => state.authSlice);
-  const navigator = useNavigate();
 
   const submitClickEventHandler = async (e) => {
     e.preventDefault();
 
     //로그인 기능
     if (!isState && validation()) {
-      try {
-        const { data } = await userInstance.post("/login", {
-          id,
-          password,
-        });
-
-        const { accessToken, avatar, nickname, userId } = data;
-
-        if (data.success) {
-          dispatch(login({ accessToken, avatar, nickname, userId }));
-          navigator("/home");
-          toast.success("로그인 성공");
-        }
-      } catch (error) {
-        toast.error(error.response.data.message);
-      }
+      dispatch(__login({ id, password }));
     }
 
     // 회원 가입 기능
@@ -113,11 +96,7 @@ function Login() {
       <LoginDiv>
         <LoginForm onSubmit={submitClickEventHandler}>
           <p>{isState ? "회원가입" : "로그인"}</p>
-          <input
-            value={id}
-            onChange={(event) => setId(event.target.value)}
-            placeholder="아이디 (4~10글자)"
-          ></input>
+          <input value={id} onChange={(event) => setId(event.target.value)} placeholder="아이디 (4~10글자)"></input>
           <input
             value={password}
             onChange={(event) => setPassword(event.target.value)}
